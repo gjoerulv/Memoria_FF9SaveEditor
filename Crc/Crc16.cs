@@ -5,8 +5,8 @@ namespace Memoria.Crypto
 
     public class Crc16Ccitt
     {
-        ushort[] table = new ushort[256];
-        ushort initialValue;
+        readonly ushort[] table = new ushort[256];
+        readonly ushort initialValue;
 
         public Crc16Ccitt(ushort initialValue, ushort poly)
         {

@@ -42,7 +42,8 @@ namespace Memoria
                     System.Diagnostics.FileVersionInfo fvi = System.Diagnostics.FileVersionInfo.GetVersionInfo(assembly.Location);
                     return fvi.FileVersion;
                 }
-                catch(Exception ex) { } return "";
+                catch(Exception ) { /*silent*/ } 
+                return "";
             }
         }
     }

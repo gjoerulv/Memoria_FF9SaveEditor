@@ -1848,12 +1848,6 @@ namespace Memoria
         /// </summary>
         private void DoResize()
         {
-            //this.SuspendLayout();            
-            //int h = toolStripTop.Height + statusStrip.Height + menuStrip.Height + 46;
-            //gridView.Height = this.Height - h;
-            //this.ResumeLayout(false);
-            //this.PerformLayout();
-
             SendScreenToReg(regKey);
         }
 
@@ -1885,7 +1879,6 @@ namespace Memoria
                 SetFormText(file);
         }
 
-        //on closing event
         private void SelectSave_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (!closing)

@@ -496,10 +496,6 @@ namespace Memoria
             int tOff = info.IsRR2016SaveType ? ITEM_SECTION_START_RR : ITEM_START_OFFSET;
             itemNumber = (byte)Numbers.MaxMin(itemNumber, 255, 0);
             itemOffset = Numbers.MaxMin(itemOffset, 1, 0);
-            /*if(info.IsRR2016SaveType)
-            {
-                if (itemOffset == 0) itemOffset = 1; else itemOffset = 0;
-            }*/
             return tOff + (2 * itemNumber + itemOffset);
         }
 
@@ -519,13 +515,14 @@ namespace Memoria
 
             cardNumber = (byte)Numbers.MaxMin(cardNumber + 1, Card.MaxNumberOfCards(info), 1);
             CardStat cst = (CardStat)Numbers.MaxMin(cardOffset, cardBLen - 1, 0);
-            //cardOffset = Numbers.MaxMin(cardOffset, cardBLen - 1, 0);
-            return cstartOff + (cardBLen * (cardNumber - 1) + /*cardOffset*/ Card.InternalOffset(info, cst));
+            return cstartOff + (cardBLen * (cardNumber - 1) + Card.InternalOffset(info, cst));
         }
 
         #endregion
     }
 }
+
+#region NOTES (move or delete this)
 /*
  * 
  * 
@@ -684,3 +681,4 @@ CARDS:
 0x0005: BYTE    M.Def;           // Magical defence power.
 
 */
+#endregion

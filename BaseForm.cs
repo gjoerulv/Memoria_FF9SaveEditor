@@ -47,74 +47,8 @@ namespace Memoria
             
             this.AutoScaleMode = AutoScaleMode.None;
             Font font = new System.Drawing.Font(FontFamily.GenericSansSerif, BASE_FONT_SIZE);
-            //this.Font = font;
-
-            //int screenWidth = SystemInformation.PrimaryMonitorSize.Width;
-            //int screenHeight = SystemInformation.PrimaryMonitorSize.Height;
-
-            //fontSize = (screenHeight + screenWidth) / 260.0f;
-            //if (fontSize < MIN_FONT_SIZE) fontSize = MIN_FONT_SIZE;
-
-            //font = new Font(FontFamily.GenericSansSerif, fontSize);
-            //this.AutoScaleMode = AutoScaleMode.Font;
             this.Font = font;
 
-            AdjustSizes(this.Controls);
-            //foreach (Control c in this.Controls)
-            //{
-            //    c.Font = font;
-            //    if (c.HasChildren)
-            //        AdjustSizes(c.Controls);
-            //}
-        }
-
-        private void AdjustSizes(Control.ControlCollection col)
-        {
-            //int x = 0, y = 0, w = 0, h = 0, py = 0, px = 0, pw = 0, ph = 0, count = 0;
-            //foreach (Control c in col)
-            //{
-            //    c.Font = this.Font;
-            //    if (count == 0)
-            //    {
-            //        y = py = c.Location.Y; x = px = c.Location.X;
-            //        h = ph = c.Height; w = pw = c.Width;
-            //    }
-            //    else
-            //    {
-            //        y = c.Location.Y; x = c.Location.X;
-            //        h = c.Height; w = c.Width;
-            //    }
-
-            //    if (y < py - 8 || y > py + 8)
-            //    {
-
-            //    }
-
-            //    c.Height = CalcNewValue(h);
-            //    c.Width = CalcNewValue(w);
-
-            //    if (c.HasChildren)                    
-            //        AdjustSizes(c.Controls);
-
-            //    py = c.Location.Y; px = c.Location.X;
-            //    ph = c.Height; pw = c.Width;
-
-            //    count++;
-            //}
-
-            foreach (Control c in col)
-            {
-                c.Font = this.Font;
-                //c.BackColor = Color.White;
-                //c.ForeColor = Color.Black;
-                //if (c is Button)
-                //    c.Height = 30;
-                if (c.HasChildren)
-                {
-                    //c.BackColor = SystemColors.Control;
-                    AdjustSizes(c.Controls);
-                }
-            }
         }
 
         protected virtual int CalcNewValue(int value)
@@ -135,7 +69,7 @@ namespace Memoria
                 }
                 GRegistry.SetRegValue(key, this.Name + "wstate", this.WindowState, RegistryValueKind.DWord);
             }
-            catch (Exception silent) { }
+            catch (Exception) { /*silent*/ }
         }
 
         protected virtual void SetFormSizeFromReg(RegistryKey key)
@@ -153,7 +87,7 @@ namespace Memoria
                     this.Name + "_Height_" + (int)fontSize, this.Height).ToString());
                 this.Size = new Size(w, h);
             }
-            catch (Exception silent) { }
+            catch (Exception) { /*silent*/ }
         }
     }
 }

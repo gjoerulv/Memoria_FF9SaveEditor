@@ -214,8 +214,18 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Resources\Thumbs.db" />
-    <None Include="Resources\TileG.pngbak" />
+    <None Include="Templates\All Characters\Godlike.mmrac">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\Items\All Items x99 Arranged.mmri">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\Tetra Master Cards\FAFF Random Arrows.mmrc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\Tetra Master Cards\FXFF Random Arrows.mmrc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="HEEELP.html">
@@ -253,6 +263,7 @@
     <Content Include="Resources\export-icon.png" />
     <Content Include="Resources\Ff9_char2.JPG" />
     <Content Include="Resources\Folder_24x24.png" />
+    <None Include="Templates\Readme.txt" />
     <None Include="Resources\fr.png" />
     <Content Include="Resources\Freya.jpg" />
     <Content Include="Resources\FreyaBig.jpg" />
