@@ -1,0 +1,227 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+    <title>
+        Memoria 0.6.3.1
+    </title>
+
+    <style type="text/css">
+        a {
+            text-decoration: none;
+            color: #2E1BB0;
+        }
+
+            a:visited {
+                text-decoration: none;
+                color: #AE3750;
+            }
+
+            a:hover {
+                text-decoration: underline;
+                /*color: #5E37F0*/
+            }
+
+        h5 {
+            font-style: italic;
+        }
+
+        span {
+            font-weight: bold;
+        }
+    </style>
+
+
+</head>
+
+<body style="color: #000000; background-color:#FFFFFF; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
+    <br>
+    <div style="padding-left:24px; min-width:120px; width:75%">
+        <h2 id="top">MEMORIA - FINAL FANTASY IX SAVE EDITOR</h2>
+        <h5>Version 0.6.3.1</h5>
+
+        <div style="border:solid 4px #441B2E;background-color:#AACCDD; color:#441B2E; width: 274px">
+            <h4 style="text-decoration:underline; padding-left: 4px">CONTENTS</h4>
+
+            <ul>
+                <li><a href="#n1">Introduction and Requirements</a></li>
+                <li><a href="#n2">Memory Card Handling</a></li>
+                <li><a href="#n11">Re-release 2016 version</a></li>
+                <li><a href="#n3">Editing a Save</a></li>
+                <li><a href="#n4">Characters</a></li>
+                <li><a href="#n5">Party</a></li>
+                <li><a href="#n6">Items</a></li>
+                <li><a href="#n7">Cards</a></li>
+                <li><a href="#n8">Hot & Cold</a></li>
+                <li><a href="#n9">Miscellaneous and Unknowns</a></li>
+                <li><a href="#n10">Version History</a></li>
+            </ul>
+
+        </div>
+        <br>
+
+        <h3 id="n1">Introduction and Requirements</h3><hr>
+        <p>
+            This program can edit save data from Final Fantasy IX. Made by the almighty Gj&oslash;rulv, It can also work as a simplified PSX memory card editor, and, as of version 0.6b also supports formats for the 2016 re-release (for steam/android/ios ports). !The 2016 re-release is only tested on the steam version!.</br>
+            I keep Memoria in the public domain, but I haven't published the source anywhere yet. Just kidding, it's <a href="https://sourceforge.net/p/memoriaff9/code-0/HEAD/tree/trunk/Memoria_DOT_NET/" target="blank">HERE!</a>
+        </p>
+        <p>Memoria is for Windows. To run it, Microsoft .Net framework version 2.0 is required. You probably have it, unless you have a old computer and never update. If Memoria opens and runs the framework is installed. If you do not have it, you can download .NET <a href="http://msdn.microsoft.com/en-us/vstudio/aa496123" target="blank">HERE.</a> Any version will do, as long as it's at least 2.0.</p>
+        <p>For Linux/OSx users: I suspect it's compatible with Wine, but I haven't tested it.</p>
+        <p>Questions beyond what is explained here can be asked by sending an e-mail to: <a href="mailto:gjoerulv@hotmail.com">gjoerulv@hotmail.com</a>, or post in the <a href="http://forums.qhimm.com/index.php?topic=11494.0" target="blank">forum</a>.</p>
+        <h4>Thanks goes to:</h4>
+        <p><span>Zande</span> for helping me with the savemap and the checksum.</br><span>sithlord48</span> for pointing me in the right direction concerning memory card files.</br><span>Armorvil</span> for naming the app.</br><span>MaKiPL</span> for help on the 2016 re-release.</br>And all the feedback and support I've gotten from various members at the qhimm forums.</p>
+        <p><a href="#top">Back to top</a></p><br>
+
+        <h3 id="n2">Memory Card Handling</h3><hr>
+        <p>Memoria can open various types of PSX memory card files and single saves.</p>
+        <h4>Memory Cards:</h4>
+        <ul>
+            <li>ePSXe/PSEmu Pro (*.mcr)</li>
+            <li>DexDrive (*.gme)</li>
+            <li>pSX/AdriPSX (*.bin)</li>
+            <li>Bleem! (*.mcd)</li>
+            <li>VGS (*.vgs, *.mem)</li>
+            <li>PSXGameEdit (*.mc)</li>
+            <li>WinPSM (*.ps)</li>
+            <li>Smart Link (*.psm)</li>
+            <li>MCExplorer (*.mci)</li>
+            <li>DataDeck (*.dff)</li>
+        </ul>
+        <h4>Single Saves:</h4>
+        <ul>
+            <li>XP, AR, GS, Caetla (*.psx)</li>
+            <li>Datel (*.pda, *.mcx)</li>
+            <li>Smartlink (*.mcb)</li>
+            <li>Memory Juggler (*.ps1)</li>
+            <li>PSXGameEdit (*.mcs)</li>
+            <li>Memoria Template (*.mmrb)</li>
+            <li>Raw Save</li>
+        </ul>
+
+        <p>PS3 virtual saves (*.psv) and PSX PSP memory cards (*.vmp) can also be worked on, however, these files contains checksums that will be corrupted if anything is changed within the file. There are workarounds. Google it! I'm too lazy to explain right now. :P The &quot;Save As...&quot; feature works well if you wish to convert one type to another.</p>
+        <p>Once a card is opened, depending on the data, a grid will be filled based on FF9 previews. One preview pr. row, obviously. There are several columns in this view, most self-explanatory (you got this to edit FF9 saves, right?), but some may need some explanation.</p>
+        <p><span>Block:</span> A PSX memory card contains 15 blocks, or frames with save data. 1 block equals 1 slot in byte length, but slot number 1, as seen in-game, may not be stored in block number 1. It depends on many things. What data you wish to edit is based on block/frame number, not slot number.</p>
+        <p><span>Slot:</span> This the actual slot number as it appears in-game.</p>
+        <p><span>Region:</span> Basically PAL or NTSC. It's content is based the region code for the save data. Because the game ID is different for many countries, I made a similar amount of region options. Regions can be cycled through by clicking &quot;Cycle Regions&quot; in the toolbox above the grid, or simply selecting a country. You may notice that the game time changes when changing between PAL and NTSC. This is because they don't have the same frame rate.</p>
+        <p>Some primitive memory card editing is possible: Delete blocks, copying/cut/paste blocks and formatting cards. More than this is not possible as far as standard memory card editing is concerned. Everything else requires some FF9 data, but it's possible to view product and game code in other titles by clicking &quot;Block Info...&quot;, or Ctrl+I. Empty blocks or blocks that contains data from another title will not be editable.</p>
+        <p>It is possible to import/export single save files (it is not possible to export PSV files). Importing/exporting data assumes single-block saves. Memoria cannot import/export/copy/paste multi-block saves. Deleting multi-block saves are possible.</p>
+        <p><a href="#top">Back to top</a></p><br>
+
+        <h3 id="n11">Re-release 2016 version</h3><hr>
+        <p>Formats supported are *.dat and *.sav files. Editing these type of files should still be considered experimental. Keeping backups of your file(s) is highly recommended. PLEASE NOTE! I have only tested for the steam version. As far as I know, Android and iOS type files are basically the same, but chances ar fairly high I'm wrong.</p>
+        <p>As these are not memorycard files, doing primitive functions (such as copy/paste/import/export) on these are not yet possible.</p>
+        <p>Some controls are disabled due to me not knowing where in the savemap the corresponding values are.</p>
+        <p><a href="#top">Back to top</a></p><br>
+
+        <h3 id="n3">Editing a Save</h3><hr>
+        <p>By double-clicking a row with FF9 data, a new form with editable data representing the selected block will be opened. It is also possible to click &quot;Edit...&quot; (1st column) or hit spacebar to open this form.<br>On the top is a dropdown menu where you can quickly jump to other blocks containing FF9 data. It's also possible to switch block by holding Alt while pushing the directional keys. Alt+Left or Alt+UP loads previous block. Alt+Right or Alt+Down loads the next block.</p>
+        <p>Everything you edit will not take effect on the card unless you click OK or Apply at the bottom. Clicking Cancel removes all edits since the last time you clicked Apply, and closes the edit form. Clicking OK also closes the form, but everything edited will be remembered. Memoria will remember everything you edit, even when switching blocks. If the Apply button is grayed out (not enabled, or not clickable) everything is identical since you opened the edit form or since the last time you clicked Apply.</p>
+        <p>Once back at the main form you'll still need to save for anything to actually change on the file. The OK or Apply button is not equal to saving the changes in the file. By clicking &quot;Undo&quot; or Ctrl+Z anything you edited in the last session will be rolled back (if you actually did change something). Up to 4 actions can be undone/redone on the card; editing (a) save(s) counts as one action each time Apply or OK are clicked.</p>
+        <p>There are currently 5 main tabs in the Save Edit form: <a href="#n4">Characters</a>, <a href="#n5">Party</a>, <a href="#n6">Items</a>, <a href="#n7">Cards</a>, <a href="#n8">Hot & Cold</a> and  <a href="#n9">Misc.</a> Each of these are explained more below.</p>
+        <p>You will notice there are export/import features for each category/tab, except Party and Misc. These are buttons with a green or red arrow. Red = export, green = import. Exporting/importing templates only effects the active category, and works cross files. In characters, there are 2 different export/import features: single character (&quot;Misc.&quot; tab) or all characters at once (&quot;All Characters&quot; group box).</p>
+        <p><a href="#top">Back to top</a></p><br>
+
+        <h3 id="n4">Characters</h3><hr>
+        <p>By clicking on a character portrait, the one you clicked is editable. Some characters contains data for two. It's possible to view other appearances by selecting Yes in the Display as... radio buttons. This is only for display purposes. As for the actual editable data it should be self-explanatory.</p>
+        <p>Total stats means base + item bonus. Base HP/MP are Max HP/MP without percentage bonuses from passive abilities.</p>
+        <p>Each status is one bit each; a higher number equals more statuses. 0 = no status, 255 = all statuses. And the bits are like this: First (1) is Petrification, second (2) is Venom, third (4) Virus, fourth (8) Silence, fifth (16) Darkness, sixth (32) Trouble, seventh (64) Zombie. It also seems the eight bit (128) has to be checked (any bit + 128, for instance: Virus (4) + 128 = 132) to get any status, but I may be wrong.</p>
+        <p>Pools have something to do with any +stats from gear every time a character levels up, but I'm not exactly sure how it works. It may also cause some unexpected results if these values are too high.</p>
+        <p>Actions like &quot;Max All&quot;, or &quot;Empty All&quot; does not alter unknown values. These values are editable at own risk. Please report back if you figured out what they do, to: <a href="mailto:gjoerulv@hotmail.com">gjoerulv@hotmail.com</a></p>
+        <p><a href="#top">Back to top</a></p><br>
+
+        <h3 id="n5">Party</h3><hr>
+        <p>There really isn't much to edit here.<br>Changing party members will update the preview data including leader name and level. Adding Beatrix to the party is possible as well. It's even possible to have an empty party, but I wouldn't recommend it.</p>
+        <p>Other than editing the members you can also change gil, successful thefts by Zidane, frogs captured by Quina and dragons slain. The number of dragons the party has killed only effects Freya's &quot;Dragon's Crest&quot; ability. 100 is enough. Also, frogs captured don't need to be more than 255 to max Quina's &quot;Frog Drop&quot;.</p>
+        <p>It isn't possible to export/import any of these values as a standalone template.</p>
+        <p><a href="#top">Back to top</a></p><br>
+
+        <h3 id="n6">Items</h3><hr>
+        <p>There are 3 different ways of editing items.</p>
+        <p><span>1. Directly: </span>By clicking on the selected item's name, a drop-down box will appear. Now you can select which item the selected slot should hold. Same thing with quantity, but here it's not a drop-down box. You can type the number or push Up or Down on the keyboard to increase or decrease values. With item's name, when the drop-down box is visible, it's possible to jump to items by pushing the 1st letter (in the name) on the keyboard. Hitting enter, or simply leaving the controls, updates the values.<br>If you hit Delete when an item is selected, the selected slot will be emptied.</p>
+        <p><span>2. Selected Item: </span>Here you can choose what item to edit. When you change it you'll notice selected item change as well in the item view. When clicking &quot;Fill&quot; on an empty slot it'll be 99 Potions.</p>
+        <p><span>3. All Items: </span>The one feature to point out is the <span style="font-weight: normal; font-style: italic">&quot;macro&quot;</span> function which alters item's quantities. Select/type a number, choose function in the drop-down box (add, subtract, etc) and hit &quot;!&quot;. Depending on the previous controls, this will affect all items. One example: You typed 1,50 in the box, selected &quot;Multiply&quot;, then hit &quot;!&quot;. Now all item's quantity will be multiplied by 1,5.</p>
+        <p>You can export/import item templates.</p>
+        <p><a href="#top">Back to top</a></p><br>
+
+        <h3 id="n7">Cards</h3><hr>
+        <p>On the left are the editable controls. On the right are the cards. Clicking on a card makes it active.</p>
+        <p>Editing all cards contains similar <span style="font-weight: normal; font-style: italic">&quot;macro&quot;</span> actions as editing all items does, but there are more properties to handle on cards. Each card has attack, attack type, defence and magic defence values. All these, except attack type, has a max value of 255. If you divide this value by 16 you'll find the card's attribute value as it's displayed in-game.</p>
+        <p>When editing all cards, the red X means delete all cards. The green V means master all cards (Even empty cards; does not change card type). Clicking &quot;All Types&quot; gives you all type of cards from card 1-100 (by type it means Goblin, Fang, etc.). There is also a button (&quot;Random&quot;) at the bottom right which randomizes the arrows of all cards.</p>
+        <p>To change the arrows on a single card, click on the selected card's picture. For instance, to toggle the upper left arrow, click on the upper left on the picture.</p>
+        <p><a href="#top">Back to top</a></p><br>
+
+        <h3 id="n8">Hot & Cold</h3><hr>
+        <p>Not much to edit here. The most useful thing to edit would be total points your party has. This is how many points you can spend on items.</p>
+        <p>The rest is just how many times you have played hot & cold and high scores.</p>
+        <p><a href="#top">Back to top</a></p><br>
+
+        <h3 id="n9">Miscellaneous and Unknowns</h3><hr>
+        <p>Not much to say here. In my laziness I've kept disc nr zero based, which means the actual disc nr is one more than what's displayed here.</p>
+        <p>Concerning unknowns: All unknown bytes can be editing in a hex-editor. Click on the range of bytes you wish to edit, and hex away. Of course, as in unknown character bytes, I would like to know what they represent. if you happen to find out, please, let me know: <a href="mailto:gjoerulv@hotmail.com">gjoerulv@hotmail.com</a></br>For re-release 2016 version, all data is editable in hex.</p>
+        <p>Wins, Losses and Draws refer to card games.</p>
+        <p>The &quot;?&quot; in jump ropes are unknown, but it's value seems always to be 0.</p>
+        <p><a href="#top">Back to top</a></p><br>
+
+        <h3 id="n10">Version History</h3><hr>
+		<h4>New in 0.6.3.1:</h4>
+        <ul>
+            <li>Fixed a bug on item-editing.</li>
+        </ul>
+        <h4>New in 0.6.3.0:</h4>
+        <ul>
+            <li>Made it possible to export/import raw (decrypted) file data for re-release version.</li>
+            <li>Updated hex-edit for re-release.</li>
+            <li>Fixed a bug on item-editing when using the subtraction method would cause item-type to change.</li>
+        </ul>
+        <h4>New in 0.6.2b:</h4>
+        <ul>
+            <li>Added party editing for FF9rr (successful thefts etc.). Keep in mind I'm not 100% sure if this works correctly. Dragons slain seems to work.</li>
+            <li>Updated label for selecting block for FF9rr to reflect how it's actually labeled in game.</li>
+        </ul>
+        <h4>New in 0.6.1b:</h4>
+        <ul>
+            <li>Fixed operatoin on all cards.</li>
+            <li>Added an option to random arrows generation on cards.</li>
+            <li>Known bugs/issues: Setting abilities (magic stones) only works like it would in-game (if I'm not mistaken). Meaning setting all abilities won't work, most likely.</li>
+        </ul>
+        <h4>New in 0.6b:</h4>
+        <ul>
+            <li>Added support for FF9 re-release (2016) save files.</li>
+        </ul>
+        <h4>New in 0.5.1b:</h4>
+        <ul>
+            <li>Added card type &quot;A&quot;.</li>
+        </ul>
+        <h4>New in 0.5b:</h4>
+        <ul>
+            <li>Minor Hot & Cold stuff editable</li>
+            <li>Fixed bug with Ore not showing.</li>
+            <li>Jump ropes editable.</li>
+            <li>Some tab bug fixed.</li>
+        </ul>
+        <h4>New in 0.4b:</h4>
+        <ul>
+            <li>Updates preview party members.</li>
+            <li>Possible to alter unknown bytes.</li>
+            <li>Easier region changing.</li>
+            <li>More (all?) file types editable.</li>
+        </ul>
+        <h4>New in 0.3b:</h4>
+        <ul>
+            <li>Fixed bug that caused corrupted saves when changing blocks.</li>
+            <li>Possible to alter play time.</li>
+            <li>Faster boot time.</li>
+            <li>Updates Gil and play time preview.</li>
+        </ul>
+        <p><a href="#top">Back to top</a></p><br>
+
+        <p>Peace and love baby!</p>
+
+    </div>
+</body>
+
+
+</html>
